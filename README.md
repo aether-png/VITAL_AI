@@ -1,19 +1,96 @@
-# React + Vite
+# VITAL-AI: Clinical Risk Decision Support Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+VITAL-AI is an AI-based perioperative decision support platform designed to improve patient safety by predicting intraoperative hypotension and detecting postoperative deterioration in near real-time.
 
-Currently, two official plugins are available:
+## Abstract
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project presents an AI-based perioperative decision support platform to improve patient safety by predicting intraoperative hypotension and detecting postoperative deterioration in near real-time. Intraoperative hypotension and postoperative deterioration leading to unplanned ICU admission are strongly associated with acute kidney injury, myocardial injury, and increased mortality.
 
-## React Compiler
+The system uses arterial blood pressure waveforms, vital signs, surgery characteristics, and perioperative treatments to model these risks in two stages:
+1. **Intraoperative Prediction**: A 1D CNN analyzes ABP (Arterial Blood Pressure) windows to predict hypotension 10 minutes ahead, highlighting falling trends for early intervention.
+2. **Postoperative Risk Scoring**: A second model (XGBoost / Logistic Regression) combines perioperative features with continuous ward vital signs for real-time deterioration risk scoring.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Both provide interpretable alerts via a React web application with a Python backend, suitable for OR monitoring and ward escalation decisions. Trained on public critical care datasets, this platform demonstrates explainable AI for preventing surgical complications through timely warnings.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Backend
+- **Framework**: Python ([FastAPI](https://fastapi.tiangolo.com/))
+- **AI/ML**: PyTorch (for 1D CNN), scikit-learn, XGBoost, TensorFlow
+- **Data Management**: Pandas, NumPy
+- **Server**: Uvicorn
 
-## Run backend using this command
+### Frontend
+- **Framework**: [React](https://react.dev/) + [Vite](https://vite.dev/)
+- **Visuals/Charts**: Chart.js
+- **Styling**: Tailwind CSS
+- **Components**: Modern, responsive UI with real-time plotting capabilities.
+
+## Key Features
+
+- **Real-time Hypotension Prediction**: 1D CNN-powered alerts 10 minutes before actual occurrence.
+- **Deterioration Alerts**: XGBoost-driven risk assessment for unplanned ICU transfers.
+- **Interpretable Dashboard**: Visual aids for clinical decision-making.
+- **Multi-Patient Support**: Capability to handle and monitor multiple patient streams.
+
+## Project Structure
+
+```text
+VITAL-AI/
+├── backend/                # Python FastAPI Backend
+│   ├── server.py           # API Server Implementation
+│   ├── requirements.txt    # Python Dependencies
+│   ├── intraop_hypotension/# CNN Model files and data
+│   └── postoperative/      # XGBoost Model files and data
+├── src/                    # React Frontend Source
+│   ├── components/         # Reusable UI Components
+│   ├── views/              # Page Views (Intraoperative/Postoperative)
+│   ├── hooks/              # Custom React Hooks
+│   └── utils/              # Helper functions
+├── public/                 # Static Assets
+├── index.html              # Entry Point
+└── package.json            # Frontend Dependencies
+```
+
+## Setup & Installation
+
+### Prerequisites
+- Python 3.8+
+- Node.js (Latest LTS recommended)
+- npm or yarn
+
+### 1. Backend Setup
+Navigate to the `backend` directory and install dependencies:
+
+```bash
+cd backend
+pip install -r requirements.txt
+```
+
+Run the FastAPI server:
+
+```bash
+python server.py
+# OR
 uvicorn server:app --reload
+```
+The backend will be available at `http://localhost:8000`.
+
+### 2. Frontend Setup
+From the project root directory, install dependencies and start the development server:
+
+```bash
+npm install
+npm run dev
+```
+The frontend will be available at `http://localhost:5173`.
+
+## Usage
+
+1. **Intraoperative View**: Upload a CSV file containing vital sign waveforms to generate real-time hypotension risk scores.
+2. **Postoperative View**: Enter patient lab values (Creatinine, WBC, Hemoglobin, etc.) to assess the risk of ICU transfer.
+3. **Alerts**: Monitor the real-time plots and alert banners for critical status notifications.
+
+## License
+
+*Specify license or project copyright information here.*
