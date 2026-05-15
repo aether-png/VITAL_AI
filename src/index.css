@@ -4,29 +4,90 @@
 
 * { box-sizing: border-box; }
 
+/* ── Theme Variables ── */
+:root,
+[data-theme="dark"] {
+  --bg-base:          #060B13;
+  --bg-surface:       #08101B;
+  --bg-glass:         rgba(12,18,30,.75);
+  --bg-glass-nav:     rgba(6,11,19,.9);
+  --bg-input:         rgba(30,41,59,.6);
+  --bg-badge:         rgba(30,41,59,.6);
+  --text-primary:     #E2E8F0;
+  --text-secondary:   #CBD5E1;
+  --text-muted:       #64748B;
+  --border-glass:     rgba(255,255,255,.07);
+  --border-input:     #334155;
+  --badge-bg:         rgba(30,41,59,.6);
+  --badge-border:     rgba(255,255,255,.05);
+  --scrollbar-thumb:  #1E293B;
+  --sidebar-bg:       #08101B;
+  --sidebar-border:   rgba(255,255,255,.05);
+  --nav-active-bg:    rgba(6,182,212,.1);
+  --nav-active-color: #22D3EE;
+  --nav-active-border:rgba(6,182,212,.3);
+  --nav-hover-bg:     rgba(255,255,255,.04);
+  --nav-hover-color:  #ffffff;
+  --nav-inactive:     #64748b;
+  --modal-overlay:    rgba(0,0,0,.85);
+  --modal-bg:         rgba(12,18,30,.9);
+  --modal-border:     rgba(255,255,255,.1);
+}
+
+[data-theme="light"] {
+  --bg-base:          #F0F4F8;
+  --bg-surface:       #FFFFFF;
+  --bg-glass:         rgba(255,255,255,.82);
+  --bg-glass-nav:     rgba(240,244,248,.92);
+  --bg-input:         rgba(226,232,240,.7);
+  --bg-badge:         rgba(226,232,240,.8);
+  --text-primary:     #0F172A;
+  --text-secondary:   #334155;
+  --text-muted:       #64748B;
+  --border-glass:     rgba(0,0,0,.08);
+  --border-input:     #94A3B8;
+  --badge-bg:         rgba(226,232,240,.8);
+  --badge-border:     rgba(0,0,0,.08);
+  --scrollbar-thumb:  #94A3B8;
+  --sidebar-bg:       #FFFFFF;
+  --sidebar-border:   rgba(0,0,0,.07);
+  --nav-active-bg:    rgba(6,182,212,.12);
+  --nav-active-color: #0891B2;
+  --nav-active-border:rgba(6,182,212,.4);
+  --nav-hover-bg:     rgba(0,0,0,.04);
+  --nav-hover-color:  #0F172A;
+  --nav-inactive:     #64748b;
+  --modal-overlay:    rgba(0,0,0,.55);
+  --modal-bg:         rgba(255,255,255,.96);
+  --modal-border:     rgba(0,0,0,.1);
+}
+
 body {
-  background: #060B13;
-  color: #E2E8F0;
+  background: var(--bg-base);
+  color: var(--text-primary);
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
 
 /* ── Glass ── */
 .glass {
-  background: rgba(12,18,30,.75);
+  background: var(--bg-glass);
   backdrop-filter: blur(14px);
-  border: 1px solid rgba(255,255,255,.07);
+  border: 1px solid var(--border-glass);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 .glass-nav {
-  background: rgba(6,11,19,.9);
+  background: var(--bg-glass-nav);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255,255,255,.07);
+  border-bottom: 1px solid var(--border-glass);
+  transition: background 0.3s ease;
 }
 
 /* ── Drop zone ── */
@@ -110,17 +171,17 @@ body {
 
 /* ── Input ── */
 .inp {
-  background: rgba(30,41,59,.6);
-  border: 1px solid #334155;
+  background: var(--bg-input);
+  border: 1px solid var(--border-input);
   border-radius: 8px;
   padding: 8px 12px;
   font-size: .8rem;
-  color: #f1f5f9;
+  color: var(--text-primary);
   width: 100%;
-  transition: border-color .2s;
+  transition: border-color .2s, background 0.3s ease, color 0.3s ease;
   outline: none;
 }
-.inp::placeholder { color: #475569; }
+.inp::placeholder { color: var(--text-muted); }
 .inp:focus { border-color: #06B6D4; }
 
 /* ── Chart ── */
@@ -140,14 +201,14 @@ body {
 .prediction-badge.danger{ background:rgba(239,68,68,.18);  color:#F87171; border:1px solid rgba(239,68,68,.4); animation:blink-cr .8s ease-in-out infinite; }
 
 /* ── Sidebar nav ── */
-.nav-active   { background:rgba(6,182,212,.1); color:#22D3EE; border:1px solid rgba(6,182,212,.3); }
-.nav-inactive { color:#64748b; }
-.nav-inactive:hover { color:#fff; background:rgba(255,255,255,.04); }
+.nav-active   { background:var(--nav-active-bg); color:var(--nav-active-color); border:1px solid var(--nav-active-border); }
+.nav-inactive { color:var(--nav-inactive); }
+.nav-inactive:hover { color:var(--nav-hover-color); background:var(--nav-hover-bg); }
 
 /* ── Chart modal overlay ── */
 .chart-modal-overlay {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,.85);
+  background: var(--modal-overlay);
   backdrop-filter: blur(8px);
   z-index: 1000;
   display: none;
@@ -164,16 +225,16 @@ body {
 .chart-modal-scroll {
   width: 95vw;
   overflow-x: auto; overflow-y: hidden;
-  border: 1px solid rgba(255,255,255,.1);
+  border: 1px solid var(--modal-border);
   border-radius: 12px;
-  background: rgba(12,18,30,.9);
+  background: var(--modal-bg);
   padding: 20px 20px 30px;
   flex: 1;
 }
 .chart-modal-scroll::-webkit-scrollbar { height: 8px; }
-.chart-modal-scroll::-webkit-scrollbar-thumb { background:#334155; border-radius:4px; }
+.chart-modal-scroll::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius:4px; }
 .chart-modal-inner { height: 100%; min-height: 350px; }
-.chart-modal-hint { text-align:center; margin-top:10px; font-size:11px; color:#64748b; }
+.chart-modal-hint { text-align:center; margin-top:10px; font-size:11px; color:var(--text-muted); }
 
 /* ── Spinner ── */
 @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }

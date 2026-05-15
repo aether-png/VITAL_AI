@@ -51,17 +51,19 @@ export default function PostPanel({ onAnalyze, onDemo, loading }) {
   };
 
   return (
-    <section className="w-[360px] border-r border-white/5 bg-[#080D17] flex flex-col p-6 gap-4 shrink-0 overflow-y-auto">
+    <section className="w-[360px] flex flex-col p-6 gap-4 shrink-0 overflow-y-auto transition-colors duration-300"
+      style={{ borderRight: '1px solid var(--sidebar-border)', background: 'var(--bg-surface)' }}>
       {/* Model badge */}
-      <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-900/30 to-slate-900 border border-emerald-500/20 p-5">
+      <div className="relative overflow-hidden rounded-xl border p-5"
+        style={{ background: 'var(--bg-glass)', borderColor: 'rgba(16,185,129,.25)' }}>
         <div className="absolute -top-2 -right-2 opacity-10 pointer-events-none">
           <span className="material-symbols-outlined text-7xl">local_hospital</span>
         </div>
         <span className="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-600 text-white mb-2">
           XGBoost · v1.0 · Active
         </span>
-        <h3 className="text-base font-semibold text-white">Postoperative ICU Transfer</h3>
-        <p className="text-xs text-emerald-200/80 mt-1 leading-relaxed">
+        <h3 className="text-base font-semibold" style={{ color: 'var(--text-primary)' }}>Postoperative ICU Transfer</h3>
+        <p className="text-xs mt-1 leading-relaxed" style={{ color: 'var(--text-secondary)', opacity: .85 }}>
           Predicts ICU transfer risk after surgery using 12 clinical lab parameters.
         </p>
       </div>
@@ -70,7 +72,7 @@ export default function PostPanel({ onAnalyze, onDemo, loading }) {
       <div className="grid grid-cols-2 gap-2.5">
         {FIELDS.map(f => (
           <div key={f.id} className="flex flex-col gap-1">
-            <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">{f.label}</label>
+            <label className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>{f.label}</label>
             <input
               type={f.type}
               placeholder={f.placeholder}
@@ -100,8 +102,8 @@ export default function PostPanel({ onAnalyze, onDemo, loading }) {
       {/* Load Sample */}
       <button
         onClick={loadSample}
-        className="w-full py-2.5 rounded-xl text-xs font-medium text-slate-400 border border-slate-700 hover:border-amber-500/40 hover:text-amber-400 transition-all flex items-center justify-center gap-2"
-        style={{ background:'rgba(255,255,255,.02)' }}
+        className="w-full py-2.5 rounded-xl text-xs font-medium transition-all flex items-center justify-center gap-2"
+        style={{ background:'var(--badge-bg)', color:'var(--text-muted)', border:'1px solid var(--border-input)' }}
       >
         <span className="material-symbols-outlined text-base">person_add</span>
         Load Sample Patient
@@ -110,14 +112,14 @@ export default function PostPanel({ onAnalyze, onDemo, loading }) {
       {/* Demo */}
       <button
         onClick={onDemo}
-        className="w-full py-2.5 rounded-xl text-xs font-medium text-slate-400 border border-slate-700 hover:border-emerald-500/40 hover:text-emerald-400 transition-all flex items-center justify-center gap-2"
-        style={{ background:'rgba(255,255,255,.02)' }}
+        className="w-full py-2.5 rounded-xl text-xs font-medium transition-all flex items-center justify-center gap-2"
+        style={{ background:'var(--badge-bg)', color:'var(--text-muted)', border:'1px solid var(--border-input)' }}
       >
         <span className="material-symbols-outlined text-base">play_circle</span>
         Preview Demo (Offline)
       </button>
 
-      <p className="text-center text-[10px] text-slate-600">XGBoost · MIMIC-III · 12 clinical parameters</p>
+      <p className="text-center text-[10px]" style={{ color: 'var(--text-muted)', opacity: .8 }}>XGBoost · MIMIC-III · 12 clinical parameters</p>
     </section>
   );
 }
