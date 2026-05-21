@@ -66,16 +66,17 @@ export default function ChartModal({ isOpen, onClose, vitals, mode }) {
     >
       <div className="chart-modal-header">
         <div>
-          <h2 className="text-lg font-bold text-white">
+          <h2 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
             {mode === 'ai' ? 'AI-Enhanced Monitoring — Full Timeline' : 'Standard Monitoring — Full Timeline'}
           </h2>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
             {vitals?.length} data points · Scroll horizontally to navigate
           </p>
         </div>
         <button
           onClick={onClose}
-          className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 transition-all"
+          className="p-2 rounded-lg transition-all"
+          style={{ background: 'var(--badge-bg)', color: 'var(--text-secondary)', border: '1px solid var(--badge-border)' }}
         >
           <span className="material-symbols-outlined text-xl">close</span>
         </button>

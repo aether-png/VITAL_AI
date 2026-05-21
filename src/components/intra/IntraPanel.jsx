@@ -22,20 +22,23 @@ export default function IntraPanel({ onAnalyze, onDemo, loading }) {
   };
 
   return (
-    <section className="w-[360px] border-r border-white/5 bg-[#080D17] flex flex-col p-6 gap-5 shrink-0 overflow-y-auto">
+    <section className="w-[360px] flex flex-col p-6 gap-5 shrink-0 overflow-y-auto transition-colors duration-300"
+      style={{ borderRight: '1px solid var(--sidebar-border)', background: 'var(--bg-surface)' }}>
       {/* Model badge */}
-      <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-900/40 to-slate-900 border border-indigo-500/20 p-5">
+      <div className="relative overflow-hidden rounded-xl border p-5"
+        style={{ background: 'var(--bg-glass)', borderColor: 'rgba(99,102,241,.25)' }}>
         <div className="absolute -top-2 -right-2 opacity-10 pointer-events-none">
           <span className="material-symbols-outlined text-7xl">neurology</span>
         </div>
         <span className="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500 text-white mb-2">CNN · v2.4 · Active</span>
-        <h3 className="text-base font-semibold text-white">Intraoperative Hypotension</h3>
-        <p className="text-xs text-indigo-200/80 mt-1 leading-relaxed">
+        <h3 className="text-base font-semibold" style={{ color: 'var(--text-primary)' }}>Intraoperative Hypotension</h3>
+        <p className="text-xs mt-1 leading-relaxed" style={{ color: 'var(--text-secondary)', opacity: .85 }}>
           Predicts hypotensive events within 10 min using a 30-step vital sign window.
         </p>
         <div className="flex gap-2 mt-3 flex-wrap">
           {['HeartRate','MeanBP','SysBP'].map(t => (
-            <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-slate-700/60 text-slate-300 border border-white/10">{t}</span>
+            <span key={t} className="text-[10px] px-2 py-0.5 rounded-full border"
+              style={{ background: 'var(--badge-bg)', color: 'var(--text-secondary)', borderColor: 'var(--badge-border)' }}>{t}</span>
           ))}
         </div>
       </div>
@@ -43,8 +46,8 @@ export default function IntraPanel({ onAnalyze, onDemo, loading }) {
       {/* Drop zone */}
       <div>
         <div className="flex justify-between items-center mb-2">
-          <span className="text-xs font-medium text-slate-300">Patient Vitals File</span>
-          <span className="text-[10px] text-slate-500">CSV only</span>
+          <span className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>Patient Vitals File</span>
+          <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>CSV only</span>
         </div>
         <div
           className={`drop-zone min-h-[160px] flex flex-col items-center justify-center text-center p-5 gap-3 ${dragging ? 'dragover' : ''}`}
@@ -55,17 +58,18 @@ export default function IntraPanel({ onAnalyze, onDemo, loading }) {
         >
           <input ref={inputRef} type="file" accept=".csv" className="hidden"
             onChange={e => acceptFile(e.target.files[0])} />
-          <div className="w-11 h-11 rounded-full bg-slate-800 flex items-center justify-center">
+          <div className="w-11 h-11 rounded-full flex items-center justify-center"
+            style={{ background: 'var(--badge-bg)' }}>
             {file
               ? <span className="material-symbols-outlined text-2xl text-emerald-400" style={{ fontVariationSettings:"'FILL' 1" }}>check_circle</span>
-              : <span className="material-symbols-outlined text-slate-400 text-2xl">upload_file</span>
+              : <span className="material-symbols-outlined text-2xl" style={{ color: 'var(--text-muted)' }}>upload_file</span>
             }
           </div>
           <div>
-            <p className="text-sm text-slate-300 font-medium">
+            <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               {file ? `📄 ${file.name}` : 'Drop patient CSV here'}
             </p>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
               {file ? `${(file.size/1024).toFixed(1)} KB — ready` : 'or click to browse'}
             </p>
           </div>
@@ -74,11 +78,11 @@ export default function IntraPanel({ onAnalyze, onDemo, loading }) {
 
       {/* Backend status */}
       <div className="space-y-1.5">
-        <div className="flex justify-between text-[11px] text-slate-400">
+        <div className="flex justify-between text-[11px]" style={{ color: 'var(--text-muted)' }}>
           <span>Backend</span>
           <span className="text-emerald-400 font-mono">localhost:8000</span>
         </div>
-        <div className="h-0.5 w-full rounded-full bg-slate-800 overflow-hidden">
+        <div className="h-0.5 w-full rounded-full overflow-hidden" style={{ background: 'var(--badge-bg)' }}>
           <div className="h-full rounded-full"
             style={{ width:'100%', background:'linear-gradient(to right,#10B981,#059669)', boxShadow:'0 0 8px #10B981' }} />
         </div>
@@ -87,8 +91,8 @@ export default function IntraPanel({ onAnalyze, onDemo, loading }) {
       {/* Patient ID */}
       <div>
         <div className="flex justify-between items-center mb-1.5">
-          <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Patient ID (optional)</label>
-          <span className="text-[10px] text-slate-600">Leave blank for random</span>
+          <label className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Patient ID (optional)</label>
+          <span className="text-[10px]" style={{ color: 'var(--text-muted)', opacity: .7 }}>Leave blank for random</span>
         </div>
         <input
           type="text"
@@ -115,14 +119,14 @@ export default function IntraPanel({ onAnalyze, onDemo, loading }) {
       {/* Demo button */}
       <button
         onClick={onDemo}
-        className="w-full py-2.5 rounded-xl text-xs font-medium text-slate-400 border border-slate-700 hover:border-cyan-500/40 hover:text-cyan-400 transition-all flex items-center justify-center gap-2"
-        style={{ background:'rgba(255,255,255,.02)' }}
+        className="w-full py-2.5 rounded-xl text-xs font-medium transition-all flex items-center justify-center gap-2"
+        style={{ background:'var(--badge-bg)', color:'var(--text-muted)', border:'1px solid var(--border-input)' }}
       >
         <span className="material-symbols-outlined text-base">play_circle</span>
         Preview Demo (Offline)
       </button>
 
-      <p className="text-center text-[10px] text-slate-600">
+      <p className="text-center text-[10px]" style={{ color: 'var(--text-muted)', opacity: .8 }}>
         Required: subject_id · charttime · HeartRate · MeanBP · SysBP
       </p>
     </section>

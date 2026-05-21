@@ -15,11 +15,11 @@ export default function DiagBanner({ state, metaText, customTitle, customBody })
         <div className="font-bold text-sm" style={{ color: cfg.color }}>
           {customTitle || cfg.diagTitle}
         </div>
-        <div className="text-xs mt-1 opacity-70 leading-relaxed">
+        <div className="text-xs mt-1 opacity-70 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
           {customBody || cfg.diagBody}
         </div>
         {metaText && (
-          <div className="text-[10px] text-slate-500 mt-3">{metaText}</div>
+          <div className="text-[10px] mt-3" style={{ color: 'var(--text-muted)' }}>{metaText}</div>
         )}
       </div>
     </div>

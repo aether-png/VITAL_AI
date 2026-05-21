@@ -23,11 +23,13 @@ export default function AlertBanner({ state, scorePct, onDismiss, bannerId }) {
       <div className="flex gap-2 shrink-0">
         <button
           onClick={() => speak(msg)}
-          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 transition-all"
+          className="p-1.5 rounded-lg transition-all"
+          style={{ background: 'rgba(255,255,255,.08)', color: 'var(--text-secondary)' }}
         ><span className="material-symbols-outlined text-base">replay</span></button>
         <button
           onClick={onDismiss}
-          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 transition-all"
+          className="p-1.5 rounded-lg transition-all"
+          style={{ background: 'rgba(255,255,255,.08)', color: 'var(--text-secondary)' }}
         ><span className="material-symbols-outlined text-base">close</span></button>
       </div>
     </div>
